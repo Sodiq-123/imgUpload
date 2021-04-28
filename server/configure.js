@@ -34,7 +34,7 @@ module.exports = function(app) {
     app.use('/public/', express.static(path.join(__dirname, '../public')));
 
     if ('development' === app.get('env')) {
-        app.use(errorHandler);
+        app.use(errorHandler());
     }
     return app;
 };
