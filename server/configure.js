@@ -13,10 +13,10 @@ var path = require('path'),
 module.exports = function(app) {
     app.engine('handlebars', exphbs.create({
         defaultLayout: 'main',
-        layoutsDir: app.get('views') + '/layouts',
-        partialsDir: [app.get('views') + '/partials'],
+        layoutsDir: path.join(__dirname, '../views/layouts'),
+        partialsDir: [path.join(__dirname, '../views/partials')],
         helpers: {
-            timeago: function(timestamp) {
+            timeago: function(timestamp) {path.join(__dirname, '../views/layouts');
                 return moment(timestamp).startOf('minute').fromNow();
             }
         }
