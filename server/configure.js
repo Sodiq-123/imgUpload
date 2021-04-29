@@ -24,7 +24,7 @@ module.exports = function(app) {
     app.set('view engine', 'handlebars');
 
     app.use(morgan('dev'));
-    var storage = multer.diskStorage({ dest: path.join(__dirname, 'public/upload/temp')});
+    var storage = multer.diskStorage({ destination: path.join(__dirname, '../public/upload/temp')});
     app.use(multer({storage: storage}).single('file'));
 
     app.use(methodOverride());
