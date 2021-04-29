@@ -10,7 +10,7 @@ var path = require('path'),
     moment = require('moment'),
     multer = require('multer');
 
-module.exports = function(app) {
+module.exports = function(app) {    
     app.engine('handlebars', exphbs.create({
         defaultLayout: 'main',
         layoutsDir: path.join(__dirname, '../views/layouts'),

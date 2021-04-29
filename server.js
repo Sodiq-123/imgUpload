@@ -6,7 +6,6 @@ app = express();
 app.set('port', process.env.PORT || 3300);
 // app.set('views', __dirname + '/views');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'handlebars');
 app = config(app);
 
 
