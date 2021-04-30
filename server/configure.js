@@ -22,7 +22,7 @@ module.exports = function(app) {
         helpers: {
             timeago: function(timestamp) {
                 path.join(__dirname, '../views/layouts');
-                console.log(new Date(timestamp).toString());
+                // console.log(new Date(timestamp).toString());
                 return dayjs(new Date(timestamp).toString()).fromNow();
             }
         }
