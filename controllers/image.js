@@ -12,7 +12,7 @@ module.exports = {
                 filename:       'sample1.jpg',
                 views:          0,
                 likes:          0,
-                timestamp:      Date.now
+                timestamp:      Date.now()
             },
             comments: [
                 {
@@ -45,9 +45,8 @@ module.exports = {
             for(var i=0; i < 6; i+=1) {
                 imgUrl += possible.charAt(Math.floor(Math.random() * possible.length));
             }
-
-            var tempPath = req.files.file.path,
-                ext = path.extname(req.files.file.name).toLowerCase(),
+            var tempPath = req.file.path,
+                ext = path.extname(req.file.originalname).toLowerCase(),
                 targetPath = path.resolve('./public/upload/' + imgUrl + ext);
 
             if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
@@ -57,7 +56,7 @@ module.exports = {
                     res.redirect('/images/' + imgUrl);
                 });
             } else {
-                fs.unlink(tempPath, function () {
+                fs.unlink(tempPath, function (err) {
                     if (err) throw err;
 
                     res.json(500, {error: 'Only image files are allowed.'});

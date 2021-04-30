@@ -7,17 +7,23 @@ var path = require('path'),
     morgan = require('morgan'),
     methodOverride = require('method-override'),
     errorHandler = require('errorhandler'),
-    moment = require('moment'),
+    relativeTime = require('dayjs/plugin/relativeTime'),
+    dayjs = require('dayjs'),
+    multer = require('multer');
     multer = require('multer');
 
 module.exports = function(app) {    
+    dayjs.extend(relativeTime);
+
     app.engine('handlebars', exphbs.create({
         defaultLayout: 'main',
         layoutsDir: path.join(__dirname, '../views/layouts'),
         partialsDir: [path.join(__dirname, '../views/partials')],
         helpers: {
-            timeago: function(timestamp) {path.join(__dirname, '../views/layouts');
-                return moment(timestamp).startOf('minute').fromNow();
+            timeago: function(timestamp) {
+                path.join(__dirname, '../views/layouts');
+                console.log(new Date(timestamp).toString());
+                return dayjs(new Date(timestamp).toString()).fromNow();
             }
         }
     }).engine);
