@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/mongotest');
+mongoose.connect('mongodb://localhost/mongotest', {useUnifiedTopology: true, useNewUrlParser: true});
 mongoose.connection.on('open', function() {
     console.log('Mongoose connected.');
 });
