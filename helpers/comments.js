@@ -15,7 +15,7 @@ module.exports = {
                     filename:       'sample1.jpg',
                     views:          0,
                     likes:          0,
-                    timestamp:      Date.now
+                    timestamp:      Date.now()
                 }
             }, {
                 image_id:   1,
@@ -31,7 +31,7 @@ module.exports = {
                     filename:       'sample1.jpg',
                     views:          0,
                     likes:          0,
-                    timestamp:      Date.now
+                    timestamp:      Date.now()
                 }
             }
         ];
