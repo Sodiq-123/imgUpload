@@ -1,8 +1,8 @@
 var express = require('express'),
 config = require('./server/configure'),
 path = require('path'),
-app = express();
-mongoose = require('mongoose')
+app = express(),
+mongoose = require('mongoose');
 
 app.set('port', process.env.PORT || 3300);
 app.set('views', path.join(__dirname, 'views'));
