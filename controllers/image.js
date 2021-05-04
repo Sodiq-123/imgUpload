@@ -15,7 +15,7 @@ module.exports = {
                 if (err) throw err;
                 if (image) {
                     image.views = image.views + 1;
-                    viewModel.image = image;
+                    viewModel.image = image.toObject();
                     image.save();
 
                     Models.Comment.find({image_id:  image._id}, {}, {sort: {'timestamp': 1} },
@@ -56,9 +56,10 @@ module.exports = {
                                 filename: imgUrl + ext,
                                 description: req.body.description
                             });
+                           
                             newImg.save(function(err, image) {
                                 console.log('Successfully inserted image: ' + image.filename);
-                                res.redirect('/images/' + image.uniqueId);
+                                res.redirect('/images/' + image.filename);
                             });
                         });
                     } else {
