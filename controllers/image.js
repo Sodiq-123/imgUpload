@@ -74,7 +74,7 @@ module.exports = {
         saveImage();
     },
     like: function(req, res) {
-        Models.Image.findOne({filename: {$regex: req.params.image_id} },
+        Models.Image.findOne({image_id: {$regex: req.params.image_id} },
             function(err, image) {
                 if (!err && image) {
                     image.likes = image.likes + 1;
@@ -83,6 +83,7 @@ module.exports = {
                             res.json(err);
                         } else {
                             res.json({likes: image.likes});
+                            // res.json({$inc: { 'likes': 1 }});
                         }
                     });
                 }

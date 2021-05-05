@@ -10,7 +10,6 @@ var path = require('path'),
     relativeTime = require('dayjs/plugin/relativeTime'),
     dayjs = require('dayjs'),
     multer = require('multer');
-    multer = require('multer');
 
 module.exports = function(app) {    
     dayjs.extend(relativeTime);
@@ -21,8 +20,7 @@ module.exports = function(app) {
         partialsDir: [path.join(__dirname, '../views/partials')],
         helpers: {
             timeago: function(timestamp) {
-                path.join(__dirname, '../views/layouts');
-                // console.log(new Date(timestamp).toString());
+                console.log(timestamp);
                 return dayjs(new Date(timestamp).toString()).fromNow();
             }
         }
