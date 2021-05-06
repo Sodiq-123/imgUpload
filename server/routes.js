@@ -9,7 +9,7 @@ module.exports = function(app) {
     router.get('/', home.index);
     router.get('/images/:image_id', image.index);
     router.post('/images', image.create);
-    router.get('/images/like/:image_id', image.like);
-    router.get('/images/comment/:image_id', image.comment);
+    router.post('/images/like/:image_id', image.like);
+    router.post('/images/comment/:image_id', image.comment);
     app.use(router);
 };

@@ -74,16 +74,16 @@ module.exports = {
         saveImage();
     },
     like: function(req, res) {
-        Models.Image.findOne({_id: req.params.id},
-            function(err, image) {
-                if (!err && image) {
+        Models.Image.findById(req.params.image_id, function(err, image) {
+                if (err) {
+                    return res.status(500).send('Something went wrong!');
+                } if (image) {
                     image.likes = image.likes + 1;
-                    image.save(function(err) {
-                        if (err) {
-                            res.json(err);
+                    image.save(function(error) {
+                        if (error) {
+                            return res.status(500).send('Something went wrong!');
                         } else {
-                            res.json({likes: image.likes});
-                            // res.json({$inc: { 'likes': 1 }});
+                            return res.send({likes: image.likes});
                         }
                     });
                 }
