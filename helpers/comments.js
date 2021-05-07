@@ -9,7 +9,7 @@ module.exports = {
                 comment:    'This is a test comment...',
                 timestamp:  Date.now(),
                 image: {
-                    uniqueId:       1,
+                    _id:       1,
                     title:          'Sample Image 1',
                     description:    '',
                     filename:       'sample1.jpg',
@@ -25,7 +25,7 @@ module.exports = {
                 comment:    'Another followup comment!',
                 timestamp:  Date.now(),
                 image: {
-                    uniqueId:       1,
+                    _id:       1,
                     title:          'Sample Image 1',
                     description:    '',
                     filename:       'sample1.jpg',

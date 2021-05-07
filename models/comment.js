@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-    ObjectId = Schema.ObjectId;
+    // ObjectId = Schema.ObjectId;
 
 var CommentSchema = new Schema({
     image_id:       {type: Schema.Types.ObjectId},

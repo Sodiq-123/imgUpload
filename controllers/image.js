@@ -1,7 +1,8 @@
 var fs = require('fs'),
     path = require('path'),
     sidebar = require('../helpers/sidebar'),
-    Models = require('../models');
+    Models = require('../models'),
+    md5 = require('md5');
 
 module.exports = {
     index: function(req, res) {
@@ -18,17 +19,16 @@ module.exports = {
                     viewModel.image = image.toObject();
                     image.save();
 
-                    Models.Comment.find({image_id:  image._id}, {}, {sort: {'timestamp': 1} },
-                        function(err, comments) {
+                    Models.Comment.find({image_id: image._id}, {}, {sort: {'timestamp': 1} },
+                        function(error, comments) {
+                            if (error) {
+                                res.redirect('/');
+                            }
                             viewModel.comments = comments;
-                            sidebar(viewModel, function(viewModel) {
-                                res.render('image', viewModel);
-                            });
-                        }
-                    );
-                } else {
-                    res.redirect('/');
-                }
+                        });
+                } sidebar(viewModel, function(viewModel) {
+                    res.render('image', viewModel);
+                });
             });
     },
     create: function(req, res) {
@@ -65,7 +65,7 @@ module.exports = {
                     } else {
                         fs.unlink(tempPath, function (err) {
                             if (err) throw err;
-                            res.json(500, {error: 'Only image files are allowed.'});
+                            res.json(500, {err: 'Only image files are allowed.'});
                         });
                     }
                 }
@@ -90,6 +90,24 @@ module.exports = {
             });
     },
     comment: function(req, res) {
-        res.send('The image:comment POST controller');
+        Models.Image.findOne({filename: {$regex: req.params.image_id}}, function(err, image) {
+            if (err) {
+                res.redirect('/');
+            } if (image) {
+                var newComment = new Models.Comment(req.body);
+                console.log(req.body);
+                newComment.email = req.body.email;
+                newComment.gravatar = md5(newComment.email);
+                newComment.image_id = image._id;
+                newComment.save(function(error) {
+                    if (error) {
+                        console.log(error.message);
+                        return res.status(500).json(error);
+                    } else {
+                        return res.redirect(`/images/${image._id}#${newComment._id}`);//    + '#' + newComment._id);
+                    }
+                });
+            }
+        });
     }
 };
