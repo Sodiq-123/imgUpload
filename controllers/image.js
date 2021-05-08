@@ -95,7 +95,7 @@ module.exports = {
                 res.redirect('/');
             } if (image) {
                 var newComment = new Models.Comment(req.body);
-                console.log(req.body);
+                // console.log(req.body);
                 newComment.email = req.body.email;
                 newComment.gravatar = md5(newComment.email);
                 newComment.image_id = image._id;

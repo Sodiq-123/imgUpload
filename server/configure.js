@@ -33,7 +33,7 @@ module.exports = function(app) {
 
     app.use(methodOverride());
     app.use(cookieParser('2729298RE(#(###(3jdkjhwjh%$(3#80jnf2i4Vrg%ty984'));
-    app.use(express.urlencoded())
+    app.use(express.urlencoded({extended: true}));
     routes(app);
 
     app.use('/public/', express.static(path.join(__dirname, '../public')));
