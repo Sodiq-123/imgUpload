@@ -11,7 +11,7 @@ var ImageSchema = new Schema({
     timestamp:      {type: Date, default: Date.Now}
 });
 
-ImageSchema.virtual('uniqueid')
+ImageSchema.virtual('uniqueId')
     .get(function() {
         return this.filename.replace(path.extname(this.filename), '');
     });

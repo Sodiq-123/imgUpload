@@ -11,7 +11,7 @@
     <div class="panel-footer">
         <div class="row">
             <div class="col-md-8">
-                <button class="btn btn-success" id="btn-like" data-id="{{ image._id }}"><i class="fa fa-heart"> Like</i></button>
+                <button class="btn btn-success" id="btn-like" data-id="{{ image.uniqueId }}"><i class="fa fa-heart"> Like</i></button>
                 <strong class="likes-count">{{ image.likes }}</strong> &nbsp; - &nbsp; <i class="fa fa-eye"></i> <strong>{{ image.views }}</strong>
                 &nbsp; - &nbsp; Posted: <em class="text-muted">{{ timeago timestamp }}</em>
             </div>
@@ -27,14 +27,14 @@
                 <strong class="panel-title">Comments</strong>
             </div>
             <div class="col-md-4 text-right">
-                <button class="btn btn-default btn-sm" id="btn-comment" data-id="{{ image._id }}"><i class="fa fa-comments-o"> Post Comment...</i></button>
+                <button class="btn btn-default btn-sm" id="btn-comment" data-id="{{ image.uniqueId }}"><i class="fa fa-comments-o"> Post Comment...</i></button>
             </div>
         </div>
     </div>
     <div class="panel-body">
         <blockquote id="post-comment">
             <div class="row">
-                <form method="post" action="/images/{{ image._id }}/comment">
+                <form method="post" action="/images/{{ image.uniqueId }}/comment">
                     <div class="form-group col-sm-12">
                         <label class="col-sm-2 control-label" for="name">Name:</label>
                         <div class="col-sm-10">
@@ -64,12 +64,12 @@
         <ul class="media-list">
             {{#each comments}}
             <li class="media">
-                <a class="pull-left" href="#{{ comments._id }}">
-                    <img class="media-object img-circle" src="http://www.gravatar.com/avatar/{{comments.gravatar}}?d=monsterid&s=45">
+                <a class="pull-left" href="#">
+                    <img class="media-object img-circle" src="http://www.gravatar.com/avatar/{{gravatar}}?d=monsterid&s=45">
                 </a>
                 <div class="media-body">
-                    {{ comments }}
-                    <br/><strong class="media-heading">{{ comments.name }}</strong> <small class="text-muted">{{ timeago timestamp }}</small>
+                    {{ comment }}
+                    <br/><strong class="media-heading">{{ name }}</strong> <small class="text-muted">{{ timeago timestamp }}</small>
                 </div>
             </li>
             {{/each}}

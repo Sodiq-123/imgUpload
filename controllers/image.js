@@ -19,14 +19,16 @@ module.exports = {
                     viewModel.image = image.toObject();
                     image.save();
 
-                    Models.Comment.find({image_id: image._id}, {}, {sort: {'timestamp': 1} },
-                        function(error, comments) {
+                    Models.Comment.find({image_id: image._id}, {}, {sort: {'timestamp': 1} })
+                        .lean()
+                        .exec(function(error, comments) {
                             if (error) {
                                 res.redirect('/');
                             }
                             viewModel.comments = comments;
-                        });
-                } sidebar(viewModel, function(viewModel) {
+                        })
+                    } 
+                    sidebar(viewModel, function(viewModel) {
                     res.render('image', viewModel);
                 });
             });
@@ -59,7 +61,7 @@ module.exports = {
                            
                             newImg.save(function(err, image) {
                                 console.log('Successfully inserted image: ' + image.filename);
-                                res.redirect('/images/' + image.filename);
+                                res.redirect('/images/' + image.uniqueId);
                             });
                         });
                     } else {
@@ -104,7 +106,7 @@ module.exports = {
                         console.log(error.message);
                         return res.status(500).json(error);
                     } else {
-                        return res.redirect(`/images/${image._id}#${newComment._id}`);//    + '#' + newComment._id);
+                        res.redirect('/images/' + image.uniqueId + '#' + comment._id);
                     }
                 });
             }
