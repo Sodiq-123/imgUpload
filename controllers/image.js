@@ -11,8 +11,7 @@ module.exports = {
             comments: []
         };
 
-        Models.Image.findOne({filename: {$regex: req.params.image_id} },
-            function(err, image) {
+        Models.Image.findOne({filename: {$regex: req.params.image_id} }, function(err, image) {
                 if (err) throw err;
                 if (image) {
                     image.views = image.views + 1;
