@@ -8,7 +8,7 @@ module.exports = {
     index: function(req, res) {
         var viewModel = {
             image: {},
-            comments: []
+            comments: [],
         };
 
         Models.Image.findOne({filename: {$regex: req.params.image_id} }, function(err, image) {
@@ -18,7 +18,7 @@ module.exports = {
                     viewModel.image = image.toObject();
                     image.save();
 
-                    Models.Comment.find({image_id: image._id}, {}, {sort: {'timestamp': 1} })
+                    Models.Comment.find({images_id: image._id}, {}, {sort: {'timestamp': 1} })
                         .lean()
                         .exec(function(error, comments) {
                             if (error) {
@@ -105,6 +105,7 @@ module.exports = {
                         console.log(error.message);
                         return res.status(500).json(error);
                     } else {
+                        console.log(image.uniqueId)
                         res.redirect('/images/' + image.uniqueId + '#' + comment._id);
                     }
                 });
