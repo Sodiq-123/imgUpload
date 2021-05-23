@@ -1,3 +1,5 @@
+{{#if sidebar.comments}}
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">
@@ -9,7 +11,7 @@
             {{#each sidebar.comments}}
             <li class="media">
                 <a class="pull-left" href="/images/{{ image.uniqueId }}">
-                    <img class="media-object" width="45" height="45" src="/public/upload/{{ image.filename }}">
+                    <img class="media-object" width="45" height="45" src="/public/upload/{{image.filename}}">
                 </a>
                 <div class="media-body">
                     {{comment}}<br/>
@@ -20,3 +22,4 @@
         </ul>
     </div>
 </div>
+{{/if}}

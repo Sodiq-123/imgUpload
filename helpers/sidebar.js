@@ -5,16 +5,16 @@ var Stats = require('./stats'),
 
 module.exports = function(viewModel, callback){
     async.parallel([
-        (next) => {
-            next(null, Stats());
+        function(next) {
+            Stats(next);
         },
-        (next) => {
-            next(null, Images.popular());
+        function(next) {
+            Images.popular(next);
         },
-        (next) => {
+        function(next) {
             Comments.newest(next);
         }
-    ], (err, results) => {
+    ], function(err, results){
         viewModel.sidebar = {
             stats: results[0],
             popular: results[1],

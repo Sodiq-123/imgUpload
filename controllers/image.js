@@ -18,7 +18,7 @@ module.exports = {
                     viewModel.image = image.toObject();
                     image.save();
 
-                    Models.Comment.find({images_id: image._id}, {}, {sort: {'timestamp': 1} })
+                    Models.Comment.find({image_id: image._id}, {}, {sort: {'timestamp': 1} })
                         .lean()
                         .exec(function(error, comments) {
                             if (error) {
@@ -55,7 +55,7 @@ module.exports = {
                             var newImg = new Models.Image({
                                 title: req.body.title,
                                 filename: imgUrl + ext,
-                                description: req.body.description
+                                description: req.body.description,
                             });
                            
                             newImg.save(function(err, image) {
@@ -66,7 +66,7 @@ module.exports = {
                     } else {
                         fs.unlink(tempPath, function (err) {
                             if (err) throw err;
-                            res.json(500, {err: 'Only image files are allowed.'});
+                            res.status(500).json({ error: "Only Images are allowed" });
                         });
                     }
                 }
@@ -105,10 +105,33 @@ module.exports = {
                         console.log(error.message);
                         return res.status(500).json(error);
                     } else {
-                        console.log(image.uniqueId)
-                        res.redirect('/images/' + image.uniqueId + '#' + comment._id);
+                        console.log(image.filename)
+                        res.redirect('/images/' + image.filename + '#' + newComment._id);
                     }
                 });
+            }
+        });
+    },
+    remove: function(req, res) {
+        Models.Image.findById(req.params.image_id,
+            function(err, image) {
+                if (err) { throw err}
+                else {
+                    fs.unlink(path.resolve('./public/upload/' + image.filename),
+                        function(err) {
+                            if (err) { throw err };
+
+                            Models.Comment.deleteOne({ image_id: image._id },
+                                function(err, image) {
+                                    image.remove(function(err) {
+                                        if (!err) {
+                                            res.json(true);
+                                        } else {
+                                            res.json({ response: "Bad Request." });
+                                        }
+                                    });
+                            });
+                    });
             }
         });
     }

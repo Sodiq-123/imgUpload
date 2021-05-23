@@ -6,7 +6,7 @@ module.exports = {
         .lean()
         .exec(function(err, images) {
                 if (err) throw err;
-                // callback(null, images);
+                callback(null, images);
         });
     }
 };
